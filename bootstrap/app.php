@@ -17,7 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
-            'auth.teacher' => \App\Http\Middleware\TeacherAuthMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
