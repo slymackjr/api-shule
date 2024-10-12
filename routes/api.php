@@ -18,4 +18,4 @@ Route::get('/district', [ResourcesController::class, 'districts'])->name('distri
 Route::get('/wards', [ResourcesController::class, 'wards'])->name('wards');
 Route::post("/school-registration", [SchoolRequestController::class, 'store'])->name('schoolrequest.store');
 Route::post('/teacher-login', [LoginController::class, 'authenticateTeacher']);
-Route::get('/teacher-details', [LoginController::class, 'teacherDetails']);
+Route::middleware(['auth:sanctum','abilities:Teacher'])->get('/teacher-details', [LoginController::class, 'teacherDetails']);

@@ -26,13 +26,10 @@ class LoginController extends Controller
         $teacher = Auth::guard('teacher')->user();
         $token = $teacher->createToken('teacher_token', ['Teacher'])->plainTextToken;
 
-        // Set the token as an HttpOnly, Secure cookie
-        $cookie = cookie('auth_token', $token, 60 * 24 * 7, '/', null, true, true, false, 'lax');
-
         return response()->json([
             'teacher' => $teacher,
             'token' => $token,
-        ])->withCookie($cookie);
+        ]);
     }
 
     return response()->json(['error' => 'Invalid credentials'], 401);
