@@ -12,28 +12,57 @@ class LoginController extends Controller
 {
     public function authenticateTeacher(Request $request)
 {
+    // Validate the incoming request data
     $validator = Validator::make($request->all(), [
         'email' => ['required', 'email'],
         'password' => ['required'],
     ]);
 
+    // Check if validation fails
     if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
-    }
-
-    // Attempt to authenticate the teacher
-    if (Auth::guard('teacher')->attempt($request->only('email', 'password'))) {
-        $teacher = Auth::guard('teacher')->user();
-        $token = $teacher->createToken('teacher_token', ['Teacher'])->plainTextToken;
-
         return response()->json([
-            'teacher' => $teacher,
-            'token' => $token,
-        ]);
+            'response' => false,
+            'message' => 'Validation failed.',
+            'errors' => $validator->messages(),
+        ], 422);
     }
 
-    return response()->json(['error' => 'Invalid credentials'], 401);
+    // Find the teacher by email
+    $teacher = Teacher::where('email', $request->email)->first();
+
+    // Check if teacher exists and password is correct
+    if (!$teacher) {
+        return response()->json([
+            'response' => false,
+            'message' => 'Invalid credentials.',
+            'errors' => [
+                'email' => ['No account found with this email address.']
+            ]
+        ], 401);
+    }
+
+    if (!Hash::check($request->password, $teacher->password)) {
+        return response()->json([
+            'response' => false,
+            'message' => 'Invalid credentials.',
+            'errors' => [
+                'password' => ['The provided password is incorrect.']
+            ]
+        ], 401);
+    }
+
+    // Create a token for the authenticated teacher
+    $token = $teacher->createToken('teacher_token', ['Teacher'])->plainTextToken;
+
+    // Return success response with teacher info and token
+    return response()->json([
+        'response' => true,
+        'message' => 'Authentication successful.',
+        'teacher' => $teacher,
+        'token' => $token,
+    ], 200);
 }
+
 
     
     public function teacherDetails(Request $request) {

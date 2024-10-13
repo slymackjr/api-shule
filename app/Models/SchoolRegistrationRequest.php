@@ -19,7 +19,7 @@ class SchoolRegistrationRequest extends Model
         'level',
         'logo',
         'contract_number',
-        'status',
+        'active',
         'postal_address',
         'motto',
         'region_id',

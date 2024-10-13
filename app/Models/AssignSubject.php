@@ -9,8 +9,8 @@ class AssignSubject extends Model
     use HasFactory;
     protected $table = 'assign_subjects';
     protected $fillable =[
-        'class_name',
-        'stream_name',
-        'subject_name',
+        'class_id',
+        'stream_id',
+        'subject_id',
     ];
 }

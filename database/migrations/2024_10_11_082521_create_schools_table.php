@@ -23,11 +23,12 @@ return new class extends Migration
             $table->string('motto')->nullable();
             $table->string('level');
             $table->string('type');
+            $table->string('postal_address')->unique();
             $table->string('school_number')->unique();
             $table->string('corporate_color')->nullable();
             $table->string('school_registration_number')->unique();
-            $table->string('contract_number')->nullable();
-            $table->string('status')->nullable();
+            $table->string('contract_number')->nullable()->unique();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

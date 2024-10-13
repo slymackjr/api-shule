@@ -14,7 +14,7 @@ class Result extends Model
     protected $fillable = [
         'score',
         'remark',
-        'pupil_reg_number',
+        'pupil_id',
         'exam_id',
         'subject_stream_id',
     ];

@@ -28,7 +28,8 @@ class School extends Model
             'corporate_color',
             'school_registration_number',
             'contract_number',
-            'status',
+            'is_active',
+            'postal_address',
     ];
     public function wards(): BelongsTo
     {

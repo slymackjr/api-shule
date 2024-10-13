@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('default_streams', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('alias');
+            $table->string('name')->unique();
+            $table->string('alias')->unique();
             $table->timestamps();
         });
     }

@@ -28,8 +28,8 @@ class Pupil extends Model
         'stream_id',
         'street',
         'date_birth',
-        'status',
-        'payment_status'
+        'is_active',
+        'has_paid'
     ];
     public function stream(): BelongsTo
     {

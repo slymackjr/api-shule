@@ -18,12 +18,13 @@ class Parents extends Model
         'middle_name',
         'last_name',
         'phone_number',
-        'postal',
+        'postal_address',
         'ward_id',
         'district_id',
         'region_id',
         'street',
         'user_id',
+        'is_paid',
 
     ];
     public function student_parents(): HasMany

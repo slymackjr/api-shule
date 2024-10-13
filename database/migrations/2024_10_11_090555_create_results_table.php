@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('score');
             $table->string('remark');
-            $table->string('pupil_reg_number');
+            $table->foreignId('pupil_id')->constrained('pupils')->onDelete('cascade');
             $table->char('grade', 1);
             $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
             $table->foreignId('subject_stream_id')->constrained('subject_streams')->onDelete('cascade');
@@ -28,6 +28,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('results', function (Blueprint $table) {
+            $table->dropForeign(['pupil_id']);
+            $table->dropForeign(['exam_id']);
+            $table->dropForeign(['subject_stream_id']);
+        });
         Schema::dropIfExists('results');
     }
 };

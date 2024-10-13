@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('motto')->nullable();
             $table->string('contract_number')->nullable()->unique();
-            $table->string('status')->default('active');
+            $table->boolean('active')->default(false);
             $table->foreignId('ward_id')->constrained('wards');
             $table->foreignId('district_id')->constrained('districts');
             $table->foreignId('region_id')->constrained('regions');

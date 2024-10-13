@@ -25,8 +25,13 @@ class Teacher extends Authenticatable
         'profile_picture',
         'phone_number',
         'password',
+        'ward',
+        'district',
+        'region',
+        'street',
+        'postal_address',
         'role',
-        'active',
+        'is_active',
     ];
    
     public function school(): BelongsToMany

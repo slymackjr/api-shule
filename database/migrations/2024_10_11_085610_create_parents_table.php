@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('gender');
-            $table->string('postal')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->string('postal_address')->nullable();
+            $table->boolean('is_paid')->default(false);
             $table->string('email')->unique()->nullable();
             $table->string('phone_number')->unique();
             $table->string('password');
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->integer('district_id')->nullable();
             $table->integer('region_id')->nullable();
             $table->string('street')->nullable();
-            $table->string('user_id');
             $table->timestamps();
         });
     }

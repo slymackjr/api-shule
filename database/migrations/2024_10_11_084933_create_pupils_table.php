@@ -16,21 +16,23 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('full_name')->virtualAs('concat(first_name, \'  \', middle_name, \'  \', last_name)')->nullable();
-            $table->string('postal')->nullable();
-            $table->integer('ward_id')->nullable();
-            $table->integer('district_id')->nullable();
-            $table->integer('region_id')->nullable();
+            $table->string('full_name')->virtualAs('concat(first_name, \'  \', middle_name, \'  \', last_name)')->nullable()->unique();
+            $table->string('postal_address')->nullable();
+            $table->foreignId('ward_id')->constrained('wards');
+            $table->foreignId('district_id')->constrained('districts');
+            $table->foreignId('region_id')->constrained('regions');
             $table->string('street')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('phone_number')->nullable()->unique();
             $table->string('gender');
             $table->string('pupil_reg_number')->unique()->index();
             $table->date('date_birth')->nullable();
             $table->foreignId('stream_id')->constrained('streams')->onDelete('cascade');
-            $table->boolean('payment_status')->default(false);
-            $table->string('status')->default('active');
+            $table->boolean('has_paid')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
+
+            $table->unique(['first_name', 'middle_name', 'last_name']);
         });
     }
 
@@ -40,6 +42,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pupils', function (Blueprint $table) {
+            $table->dropUnique(['first_name', 'middle_name', 'last_name']);
             $table->dropForeign(['stream_id']);
         });
         Schema::dropIfExists('pupils');

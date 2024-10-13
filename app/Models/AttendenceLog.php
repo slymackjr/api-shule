@@ -12,7 +12,7 @@ class AttendenceLog extends Model
     use HasFactory;
     protected $table = 'attendance_logs';
     protected $fillable = [
-        'status',
+        'is_present',
         'date',
         'pupil_id',
         'stream_id'

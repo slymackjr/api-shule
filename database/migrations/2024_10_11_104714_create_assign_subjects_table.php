@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('assign_subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('class_name');
-            $table->string('stream_name');
-            $table->string('subject_name');
+            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('stream_id')->constrained('streams')->onDelete('cascade');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('assign_subjects', function (Blueprint $table) {
+            $table->dropForeign(['class_id']);
+            $table->dropForeign(['stream_id']);
+            $table->dropForeign(['subject_id']);
+        });
         Schema::dropIfExists('assign_subjects');
     }
 };

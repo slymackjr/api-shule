@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('attendence_logs', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('status');
+            $table->boolean('is_present');
             $table->date('date');
-            $table->integer('pupil_id');
+            $table->foreignId('pupil_id')->constrained('pupils')->onDelete('cascade');
             $table->foreignId('stream_id')->constrained('streams')->onDelete('cascade');
             $table->timestamps();
 
@@ -28,6 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('attendence_logs', function (Blueprint $table) {
+            $table->dropForeign(['pupil_id']);
             $table->dropForeign(['stream_id']);
         });
         Schema::dropIfExists('attendence_logs');
