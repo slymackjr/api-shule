@@ -21,7 +21,7 @@ class Teacher extends Authenticatable
         'last_name',
         'gender',
         'email',
-        'school_registration_number',
+        'school_id',
         'profile_picture',
         'phone_number',
         'password',

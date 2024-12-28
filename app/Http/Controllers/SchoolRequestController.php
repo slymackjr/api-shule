@@ -37,6 +37,7 @@ class SchoolRequestController extends Controller
         'school_email' => 'required|email|max:255|unique:schools,email',
         'school_phone_number' => 'required|string|max:15',
         'street' => 'required|string|max:255',
+        'motto' => 'required|string|max:255',
         'postal_address' => 'required|string|max:255',
     ]);
 
@@ -78,8 +79,8 @@ class SchoolRequestController extends Controller
         $schoolRequest->school_phone_number = $request->school_phone_number;
         $schoolRequest->school_email = $request->school_email;
         $schoolRequest->teacher_email = $request->teacher_email;
-        $schoolRequest->street = $request->street;
         $schoolRequest->postal_address = $request->postal_address;
+        $schoolRequest->street = $request->street;
         $schoolRequest->save();
 
         // Generate random password
@@ -93,6 +94,7 @@ class SchoolRequestController extends Controller
         $school->ward_id = $request->ward;
         $school->street = $request->street;
         $school->email = $request->school_email;
+        $school->postal_address = $request->postal_address;
         $school->type = $request->type;
         $school->level = $request->level;
         $school->school_number = $request->school_phone_number;
@@ -107,7 +109,7 @@ class SchoolRequestController extends Controller
         $teacher->phone_number = $request->phone_number;
         $teacher->gender = $request->gender;
         $teacher->role = 'headmaster';
-        $teacher->school_registration_number = $request->school_registration_number;
+        $teacher->school_id = $schoolRequest->id;
         $teacher->password = Hash::make($randomPassword);
         $teacher->save();
 

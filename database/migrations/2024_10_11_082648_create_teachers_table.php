@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('gender')->nullable();
-            $table->foreignId('ward_id')->constrained('wards');
-            $table->foreignId('district_id')->constrained('districts');
-            $table->foreignId('region_id')->constrained('regions');
+            $table->foreignId('ward_id')->nullable()->constrained('wards');
+            $table->foreignId('district_id')->nullable()->constrained('districts');
+            $table->foreignId('region_id')->nullable()->constrained('regions');
             $table->string('street')->nullable();
             $table->string('postal_address')->nullable();
             $table->string('role')->default('teacher');
